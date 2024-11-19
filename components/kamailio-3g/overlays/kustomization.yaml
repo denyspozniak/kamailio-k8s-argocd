@@ -7,7 +7,7 @@ resources:
 - ../base
 
 replicas:
-- count: 1
+- count: 10
   name: kamailio-3g
 
 images:
