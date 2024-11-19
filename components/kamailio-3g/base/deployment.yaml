@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kamailio-3g
-  namespace: voip-tests
+  namespace: kamailio-3g
   labels:
     app: kamailio-3g
     tier: voip
