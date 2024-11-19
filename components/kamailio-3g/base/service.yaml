@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kamailio-3g
+  namespace: kamailio-3g
+spec:
+  selector:
+    app: kamailio-3g
+  ports:
+    - name: sip
+      port: 5060
+      protocol: UDP
+      targetPort: 5060
+  type: ClusterIP
