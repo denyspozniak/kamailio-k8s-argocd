@@ -31,7 +31,7 @@ spec:
           ports:
             - name: sip
               containerPort: 5060
-              protocol: UDP
+              protocol: TCP
           resources:
             requests:
               memory: 128Mi
