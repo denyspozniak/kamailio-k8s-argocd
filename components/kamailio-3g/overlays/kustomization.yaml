@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: kamailio-3g
 
 resources:
-- ../../base
+- ../base
 
 replicas:
 - count: 1
