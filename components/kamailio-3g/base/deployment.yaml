@@ -25,7 +25,7 @@ spec:
         - name: kamailio-3g
           image: safarov/kamailio:latest
           command: ["/usr/sbin/kamailio"]
-          args: ["-DD", "-E"] 
+          args: ["-DD", "-E", "-ddd"] 
           imagePullPolicy: Always
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
