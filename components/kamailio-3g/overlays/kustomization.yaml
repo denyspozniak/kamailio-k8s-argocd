@@ -13,3 +13,4 @@ replicas:
 images:
 - name: safarov/kamailio
   newTag: latest
+
