@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: kamailio-3g
-          image: docker.pkg.github.com/kamailio/kamailio/kamailio:5.8.4-bookworm
+          image: ghcr.io/kamailio/kamailio:5.8.4-bookworm
           command: ["/usr/sbin/kamailio"]
           args: ["-DD", "-E", "-ddd"] 
           imagePullPolicy: Always
