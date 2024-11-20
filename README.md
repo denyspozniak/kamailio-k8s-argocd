@@ -27,18 +27,31 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
+minikube service -n argocd argocd-server
+minikube service -n kamailio-3g kamailio-3g
+
+or use:
+
 kubectl port-forward svc/argocd-server -n argocd --address 0.0.0.0 8080:443
+kubectl port-forward svc/kamailio-3g -n kamailio-3g 5060:5060
 ```
 
 ### 4. Using minikube image registry:
 
 ```
+https://stackoverflow.com/questions/42564058/how-can-i-use-local-docker-images-with-minikube
+https://minikube.sigs.k8s.io/docs/handbook/pushing/#Linux
+https://www.baeldung.com/ops/docker-local-images-minikube
+
 minikube image load <image name>
 
 or try to build inside minikube:
 
 eval $(minikube docker-env)
+#eval $(minikube docker-env -u)
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
 docker build . -t kamailio
 #docker tag kamailio localhost:5000/kamailio
 #docker push localhost:5000/kamailio
+curl -X GET http://docker.local:5000/v2/ubuntu/tags/list
 ```
