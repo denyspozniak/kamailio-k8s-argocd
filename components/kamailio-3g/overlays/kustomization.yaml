@@ -13,5 +13,5 @@ replicas:
 images:
 - name: ghcr.io/kamailio/kamailio:5.8.4-bookworm
 #- name: safarov/kamailio:latest
-  newTag: latest
+#  newTag: latest
 
