@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: kamailio-3g
-          image: safarov/kamailio:latest
+          #image: safarov/kamailio:latest
           command: ["/usr/sbin/kamailio"]
           args: ["-DD", "-E", "-ddd"] 
           imagePullPolicy: Always
