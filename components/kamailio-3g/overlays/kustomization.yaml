@@ -11,6 +11,6 @@ replicas:
   name: kamailio-3g
 
 images:
-- name: safarov/kamailio
+- name: docker.pkg.github.com/kamailio/kamailio/kamailio:5.8.4-bookworm
   newTag: latest
 

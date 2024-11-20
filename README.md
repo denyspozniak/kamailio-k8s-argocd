@@ -13,6 +13,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 ```
 minikube start
+minikube addons enable registry
 ```
 
 ### 3. Install ArgoCD:
@@ -27,4 +28,17 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
 kubectl port-forward svc/argocd-server -n argocd --address 0.0.0.0 8080:443
+```
+
+### 4. Using minikube image registry:
+
+```
+minikube image load <image name>
+
+or try to build inside minikube:
+
+eval $(minikube docker-env)
+docker build . -t kamailio
+#docker tag kamailio localhost:5000/kamailio
+#docker push localhost:5000/kamailio
 ```
