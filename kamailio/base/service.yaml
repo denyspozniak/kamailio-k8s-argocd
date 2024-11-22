@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: kamailio-3g
-  namespace: kamailio-3g
+  name: kamailio-svc
+  namespace: kamailio
 spec:
   selector:
-    app: kamailio-3g
+    app: kamailio
   ports:
     - name: sip
       port: 5060

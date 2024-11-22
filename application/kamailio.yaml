@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kamailio-3g
+  name: kamailio
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-deleted.slack: eng-mon-argocd-non-prod
@@ -14,7 +14,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: >-
-      components/kamailio-3g/overlays/
+      kamailio/overlays/
     repoURL: 'https://github.com/denyspozniak/kamailio-k8s-argocd.git'
     targetRevision: main
   project: default

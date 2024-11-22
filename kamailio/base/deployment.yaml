@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kamailio-3g
-  namespace: kamailio-3g
+  name: kamailio
+  namespace: kamailio
   labels:
-    app: kamailio-3g
+    app: kamailio
     tier: voip
 spec:
   replicas: 1
@@ -14,15 +14,15 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: kamailio-3g
+      app: kamailio
   template:
     metadata:
       labels:
-        app: kamailio-3g
+        app: kamailio
         tier: voip
     spec:
       containers:
-        - name: kamailio-3g
+        - name: kamailio
           image: ghcr.io/kamailio/kamailio:5.8.4-bookworm
           command: ["/usr/sbin/kamailio"]
           args: ["-DD", "-E", "-ddd"] 
@@ -39,4 +39,3 @@ spec:
             limits:
               memory: 512Mi
               cpu: 500m
-

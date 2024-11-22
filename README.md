@@ -55,3 +55,12 @@ docker build . -t kamailio
 #docker push localhost:5000/kamailio
 curl -X GET http://docker.local:5000/v2/ubuntu/tags/list
 ```
+
+### 5. Debugging pods:
+
+The command `kubectl debug` allows you to troubleshoot running pods by creating a temporary container with debugging tools. In this example, we're using the nicolaka/netshoot image which contains networking troubleshooting utilities.
+
+The command format is:
+```
+kubectl debug kamailio-3g-78c879f4c8-hcjr5 -n kamailio-3g -it --image=nicolaka/netshoot
+```
