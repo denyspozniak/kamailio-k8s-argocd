@@ -15,4 +15,4 @@ spec:
           containers:
             - name: sipexer
               image: ghcr.io/denyspozniak/sipexer:latest
-              command: ['./sipexer', 'udp:kamailio.kamailio.svc.cluster.local:5060']
+              command: ['./sipexer', 'tcp:kamailio-svc.kamailio.svc.cluster.local:5060']
