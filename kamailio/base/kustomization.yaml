@@ -4,3 +4,8 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
+
+configMapGenerator:
+  - files:
+      - ./kamailio.cfg
+    name: kamailio-config

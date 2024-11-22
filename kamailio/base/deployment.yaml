@@ -26,6 +26,10 @@ spec:
           image: ghcr.io/kamailio/kamailio:5.8.4-bookworm
           command: ["/usr/sbin/kamailio"]
           args: ["-DD", "-E", "-ddd"] 
+          volumeMounts:
+            - name: kamailio-config
+              mountPath: /etc/kamailio/kamailio.cfg
+              subPath: kamailio.cfg
           imagePullPolicy: Always
           terminationMessagePolicy: FallbackToLogsOnError
           ports:
@@ -39,3 +43,8 @@ spec:
             limits:
               memory: 512Mi
               cpu: 500m
+      volumes:
+        - name: kamailio-config
+          configMap:
+            name: kamailio-config
+            
