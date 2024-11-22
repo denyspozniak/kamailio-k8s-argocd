@@ -11,4 +11,4 @@ spec:
       port: 5060
       protocol: TCP
       targetPort: 5060
-  type: ClusterIP
+ # type: ClusterIP
