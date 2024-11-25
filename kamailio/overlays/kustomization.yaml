@@ -7,7 +7,7 @@ resources:
 - ../base
 
 replicas:
-- count: 5
+- count: 1
   name: kamailio
 
 #images:
