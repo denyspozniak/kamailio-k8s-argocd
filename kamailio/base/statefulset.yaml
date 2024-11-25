@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kamailio
+  namespace: kamailio
+  labels:
+    app: kamailio
+    tier: voip
+spec:
+  serviceName: "kamailio-svc"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kamailio
+  template:
+    metadata:
+      labels:
+        app: kamailio
+    spec:
+      containers:
+        - name: kamailio
+          image: ghcr.io/kamailio/kamailio:5.8.4-bookworm
+          command: ["/usr/sbin/kamailio"]
+          args: ["-DD", "-E", "-ddd"] 
+          volumeMounts:
+            - name: kamailio-config
+              mountPath: /etc/kamailio/kamailio.cfg
+              subPath: kamailio.cfg
+          imagePullPolicy: Always
+      volumes:
+        - name: kamailio-config
+          configMap:
+            name: kamailio-config
