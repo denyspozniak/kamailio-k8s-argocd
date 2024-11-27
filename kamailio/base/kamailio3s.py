@@ -1,5 +1,5 @@
 import sys
-import Router.Logger as Logger
+#import Router.Logger as Logger
 import KSR as KSR
 
 def ksr_request_route():
@@ -22,18 +22,11 @@ def ksr_route_reqinit():
     KSR.force_rport()
     return 1
 
-def dumpObj(obj):
-    for attr in dir(obj):
-        KSR.warn("obj.%s = %s\n" % (attr, getattr(obj, attr)))
+#def dumpObj(obj):
+#    for attr in dir(obj):
+#        KSR.warn("obj.%s = %s\n" % (attr, getattr(obj, attr)))
 
-def mod_init():
-    KSR.warn("initializing python module\n")
-    return 1
+#def mod_init():
+#    KSR.warn("initializing python module\n")
+#    return 1
 
-def ksr_script_init():
-    KSR.info("init python script\n")
-    return 1
-
-def ksr_script_child_init():
-    KSR.info("child init python script\n")
-    return 1
