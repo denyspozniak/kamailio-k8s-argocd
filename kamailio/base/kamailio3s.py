@@ -25,8 +25,3 @@ def ksr_route_reqinit():
 def dumpObj(obj):
     for attr in dir(obj):
         KSR.warn("obj.%s = %s\n" % (attr, getattr(obj, attr)))
-
-def mod_init():
-    KSR.warn("===== from Python mod init\n")
-    dumpObj(KSR)
-    return 1
