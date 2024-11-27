@@ -21,7 +21,7 @@ spec:
         - name: kamailio
           image: ghcr.io/kamailio/kamailio:5.8.4-bookworm
           command: ["/usr/sbin/kamailio"]
-          args: ["-DD", "-E", "-ddd"] 
+          args: ["-DD", "-E"] 
           volumeMounts:
             - name: kamailio-config
               mountPath: /etc/kamailio/kamailio.cfg
