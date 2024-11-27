@@ -26,6 +26,10 @@ def dumpObj(obj):
     for attr in dir(obj):
         KSR.warn("obj.%s = %s\n" % (attr, getattr(obj, attr)))
 
+def mod_init():
+    KSR.warn("initializing python module\n")
+    return 1
+
 def ksr_script_init():
     KSR.info("init python script\n")
     return 1
@@ -33,4 +37,3 @@ def ksr_script_init():
 def ksr_script_child_init():
     KSR.info("child init python script\n")
     return 1
-    
