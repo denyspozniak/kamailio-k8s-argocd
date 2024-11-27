@@ -1,16 +1,11 @@
 import sys
+import Router.Logger as Logger
 import KSR as KSR
-
-def mod_init():
-    KSR.warn("===== from Python mod init\n")
-    dumpObj(KSR)
-    return kamailio()
 
 def ksr_request_route():
     KSR.sl.sl_send_reply(200, "Ok --$HN(n)")
     KSR.xlog.xwarn(" start debug me \n")
     KSR.warn("===== method [%s] r-uri [%s]\n" % (KSR.pv.get("$rm"),KSR.pv.get("$ru")))
-
 
     try:
         ip = requests.get('https://api.ipify.org').text
