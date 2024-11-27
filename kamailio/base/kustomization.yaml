@@ -10,3 +10,6 @@ configMapGenerator:
   - files:
       - ./kamailio.cfg
     name: kamailio-config
+  - files:
+      - ./kamailio3s.py
+    name: kamailio-python

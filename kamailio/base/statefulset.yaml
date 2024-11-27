@@ -26,8 +26,15 @@ spec:
             - name: kamailio-config
               mountPath: /etc/kamailio/kamailio.cfg
               subPath: kamailio.cfg
+            - name: kamailio-python
+              mountPath: /etc/kamailio/kamailio3s.py
+              subPath: kamailio3s.py
           imagePullPolicy: Always
       volumes:
         - name: kamailio-config
           configMap:
             name: kamailio-config
+        - name: kamailio-python
+          configMap:
+            name: kamailio-python
+  
