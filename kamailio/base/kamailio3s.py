@@ -1,5 +1,4 @@
 import sys
-import Router.Logger as Logger
 import KSR as KSR
 
 def ksr_request_route():
