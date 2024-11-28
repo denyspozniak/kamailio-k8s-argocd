@@ -20,7 +20,7 @@ spec:
       containers:
         - name: kamailio
           image: ghcr.io/kamailio/kamailio:5.8.4-bookworm
-          command: ["apt-get update && apt-get install -y sngrep && /usr/sbin/kamailio"]
+          command: ["/usr/sbin/kamailio"]
           args: ["-DD", "-E"] 
           volumeMounts:
             - name: kamailio-config
