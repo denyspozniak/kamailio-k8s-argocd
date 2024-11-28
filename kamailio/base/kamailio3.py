@@ -21,7 +21,7 @@ class kamailio:
     # SIP request routing
     # -- equivalent of request_route{}
     def ksr_request_route(self, msg):
-        KSR.sl.sl_send_reply(200, "Ok --KSR.pv.get("$HN(n)")")
+        KSR.sl.sl_send_reply(200, "Ok -- %s" % KSR.pv.get("$HN(n)"))
         KSR.xlog.xwarn(" start debug me \n")
 
         try:
