@@ -38,7 +38,7 @@ class kamailio:
 
     def ksr_route_reqinit(self, msg):
 
-        if (not (KSR.is_method_in("OPTIONS") or KSR.is_INFO())):
+        if (not (KSR.is_method_in("INVITE") or KSR.is_INFO())):
             KSR.sl.sl_send_reply(405, "Method Not Supported")
             sys.exit()
 
