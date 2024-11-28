@@ -1,5 +1,5 @@
 import sys
-import Router.Logger as Logger
+#import Router.Logger as Logger
 import KSR as KSR
 
 def mod_init():
