@@ -26,9 +26,14 @@ kubectl create ns argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+minikube service -n argocd argocd-server --url &
 
-minikube service -n argocd argocd-server
+argocd login --insecure --username admin --password PASSWORD --grpc-web 127.0.0.1:PORT
+
+
+
 minikube service -n kamailio-3g kamailio-3g
+
 
 or use:
 

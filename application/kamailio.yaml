@@ -9,8 +9,8 @@ metadata:
     notifications.argoproj.io/subscribe.on-health-degraded.slack: eng-mon-argocd-non-prod
 spec:
   destination:
-    name: ''
-    namespace: ''
+    name: 'kamailio'
+    namespace: 'kamailio'
     server: 'https://kubernetes.default.svc'
   source:
     path: >-
