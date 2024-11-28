@@ -42,6 +42,8 @@ class kamailio:
             KSR.sl.sl_send_reply(405, "Method Not Supported")
             sys.exit()
 
+        KSR.xlog.xwarn(" stop debug me \n")
+
         return -255
 
 def dumpObj(obj):
