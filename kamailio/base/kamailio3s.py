@@ -22,11 +22,10 @@ def ksr_route_reqinit():
     KSR.force_rport()
     return 1
 
-#def dumpObj(obj):
-#    for attr in dir(obj):
-#        KSR.warn("obj.%s = %s\n" % (attr, getattr(obj, attr)))
+def dumpObj(obj):
+    for attr in dir(obj):
+        KSR.warn("obj.%s = %s\n" % (attr, getattr(obj, attr)))
 
-#def mod_init():
-#    KSR.warn("initializing python module\n")
-#    return 1
-
+def mod_init():
+    KSR.warn("initializing python module\n")
+    return 1
