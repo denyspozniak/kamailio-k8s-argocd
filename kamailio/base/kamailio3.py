@@ -21,7 +21,7 @@ class kamailio:
     # SIP request routing
     # -- equivalent of request_route{}
     def ksr_request_route(self, msg):
-        KSR.sl.sl_send_reply(200, "Ok --$HN(n)")
+        KSR.sl.sl_send_reply(200, "Ok --KSR.pv.get("$HN(n)")")
         KSR.xlog.xwarn(" start debug me \n")
 
         try:
@@ -29,7 +29,7 @@ class kamailio:
         except:
             ip = "Failed to resolve"
 
-        KSR.xlog.xwarn("===== method [%s] r-uri [%s] ip [%s] \n" % (KSR.pv.get("$rm"),KSR.pv.get("$ru"), ip ))
+        KSR.xlog.xwarn("===== host [%s]method [%s] r-uri [%s] ip [%s] \n" % (KSR.pv.get("$HN(n)"),KSR.pv.get("$rm"),KSR.pv.get("$ru"), ip ))
 
         if self.ksr_route_reqinit(msg)==-255 :
             return 1
