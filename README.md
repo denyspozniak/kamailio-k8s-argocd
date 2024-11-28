@@ -22,6 +22,7 @@ ArgoCD is a declarative continuous delivery tool for Kubernetes. To install it:
 
 ```
 kubectl create ns argocd
+kubectl create ns kamailio
 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 

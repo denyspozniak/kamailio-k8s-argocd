@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sipexer
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-deleted.slack: eng-mon-argocd-non-prod
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: eng-mon-argocd-non-prod
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: eng-mon-argocd-non-prod
+spec:
+  destination:
+    name: 'sipexer'
+    namespace: 'kamailio'
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: >-
+      sipexer/
+    repoURL: 'https://github.com/denyspozniak/kamailio-k8s-argocd.git'
+    targetRevision: main
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions: []
