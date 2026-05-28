@@ -8,18 +8,18 @@ metadata:
     notifications.argoproj.io/subscribe.on-sync-failed.slack: eng-mon-argocd-non-prod
     notifications.argoproj.io/subscribe.on-health-degraded.slack: eng-mon-argocd-non-prod
 spec:
-  destination:
-    name: 'kamailio'
-    namespace: 'kamailio'
-    server: 'https://kubernetes.default.svc'
-  source:
-    path: >-
-      kamailio/overlays/
-    repoURL: 'https://github.com/denyspozniak/kamailio-k8s-argocd.git'
-    targetRevision: main
   project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kamailio
+  source:
+    repoURL: https://github.com/denyspozniak/kamailio-k8s-argocd.git
+    targetRevision: main
+    path: kamailio/overlays
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions: []
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

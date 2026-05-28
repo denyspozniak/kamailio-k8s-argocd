@@ -1,52 +1,43 @@
-import sys
-#import Router.Logger as Logger
-import KSR as KSR
+"""Kamailio KSR routing module (app_python3).
+
+Loaded by `cfgengine "python"` in kamailio.cfg. The `mod_init` function
+returns an instance of `kamailio`, whose `ksr_request_route` method handles
+every incoming SIP request.
+"""
+
+import KSR
+
+
+ALLOWED_METHODS = ("INVITE", "ACK", "BYE", "CANCEL", "OPTIONS", "INFO")
+
 
 def mod_init():
-    KSR.warn("===== from Python mod init\n")
-    dumpObj(KSR)
-    return kamailio()
-
-class kamailio:
-    def __init__(self):
-        KSR.warn('===== kamailio.__init__\n')
+    KSR.info("kamailio3.py: module init\n")
+    return Kamailio()
 
 
-    # executed when kamailio child processes are initialized
+class Kamailio:
     def child_init(self, rank):
-        #KSR.warn('===== kamailio.child_init(%d)\n' % rank)
         return 0
 
-
-    # SIP request routing
-    # -- equivalent of request_route{}
     def ksr_request_route(self, msg):
-        KSR.sl.sl_send_reply(200, "Ok -- %s" % KSR.pv.get("$HN(n)"))
-        KSR.xlog.xwarn(" start debug me \n")
+        method = KSR.pv.get("$rm")
+        ruri = KSR.pv.get("$ru")
+        src = "%s:%s" % (KSR.pv.get("$si"), KSR.pv.get("$sp"))
+        host = KSR.pv.get("$HN(n)")
 
-        try:
-            ip = requests.get('https://api.ipify.org').text
-        except:
-            ip = "Failed to resolve"
+        KSR.xlog.xinfo(
+            "request: host=%s method=%s r-uri=%s from=%s\n"
+            % (host, method, ruri, src)
+        )
 
-        KSR.xlog.xwarn("===== host [%s]method [%s] r-uri [%s] ip [%s] \n" % (KSR.pv.get("$HN(n)"),KSR.pv.get("$rm"),KSR.pv.get("$ru"), ip ))
-
-        if self.ksr_route_reqinit(msg)==-255 :
+        if method not in ALLOWED_METHODS:
+            KSR.sl.sl_send_reply(405, "Method Not Allowed")
             return 1
 
+        if method == "OPTIONS":
+            KSR.sl.sl_send_reply(200, "OK - %s" % host)
+            return 1
+
+        KSR.sl.sl_send_reply(200, "OK - %s" % host)
         return 1
-
-    def ksr_route_reqinit(self, msg):
-
-        if (not (KSR.is_method_in("INVITE") or KSR.is_INFO())):
-            KSR.sl.sl_send_reply(405, "Method Not Supported")
-            sys.exit()
-
-        KSR.xlog.xwarn(" stop debug me \n")
-
-        return -255
-
-def dumpObj(obj):
-    for attr in dir(obj):
-        KSR.warn("obj.%s = %s\n" % (attr, getattr(obj, attr)))
-

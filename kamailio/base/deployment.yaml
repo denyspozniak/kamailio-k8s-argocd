@@ -2,48 +2,81 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kamailio
-  namespace: kamailio
   labels:
-    app: kamailio
+    app.kubernetes.io/name: kamailio
+    app.kubernetes.io/component: sip-proxy
     tier: voip
 spec:
   replicas: 1
   strategy:
+    type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: kamailio
+      app.kubernetes.io/name: kamailio
   template:
     metadata:
       labels:
-        app: kamailio
+        app.kubernetes.io/name: kamailio
+        app.kubernetes.io/component: sip-proxy
         tier: voip
     spec:
+      securityContext:
+        runAsNonRoot: false
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: kamailio
           image: ghcr.io/kamailio/kamailio:5.8.4-bookworm
+          imagePullPolicy: IfNotPresent
           command: ["/usr/sbin/kamailio"]
-          args: ["-DD", "-E"] 
+          args: ["-DD", "-E"]
+          ports:
+            - name: sip-udp
+              containerPort: 5060
+              protocol: UDP
+            - name: sip-tcp
+              containerPort: 5060
+              protocol: TCP
           volumeMounts:
             - name: kamailio-config
               mountPath: /etc/kamailio/kamailio.cfg
               subPath: kamailio.cfg
-          imagePullPolicy: Always
-          terminationMessagePolicy: FallbackToLogsOnError
-          ports:
-            - name: sip
-              containerPort: 5060
-              protocol: TCP
+            - name: kamailio-python3
+              mountPath: /etc/kamailio/kamailio3.py
+              subPath: kamailio3.py
+          readinessProbe:
+            tcpSocket:
+              port: sip-tcp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: sip-tcp
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 3
           resources:
             requests:
+              cpu: 100m
               memory: 128Mi
-              cpu: 128m
             limits:
-              memory: 512Mi
               cpu: 500m
+              memory: 512Mi
+          terminationMessagePolicy: FallbackToLogsOnError
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
       volumes:
         - name: kamailio-config
           configMap:
             name: kamailio-config
+        - name: kamailio-python3
+          configMap:
+            name: kamailio-python3

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  source:
+    repoURL: https://github.com/denyspozniak/kamailio-k8s-argocd.git
+    targetRevision: main
+    path: application
+    directory:
+      recurse: false
+      include: '{kamailio.yaml,sipexer.yaml}'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

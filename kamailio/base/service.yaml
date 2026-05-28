@@ -2,15 +2,18 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kamailio-svc
-  namespace: kamailio
+  labels:
+    app.kubernetes.io/name: kamailio
 spec:
+  type: LoadBalancer
   selector:
-    app: kamailio
+    app.kubernetes.io/name: kamailio
   ports:
-    - name: sip
+    - name: sip-udp
+      port: 5060
+      protocol: UDP
+      targetPort: sip-udp
+    - name: sip-tcp
       port: 5060
       protocol: TCP
-      targetPort: 5060
-  #type: ClusterIP
-  type: LoadBalancer
-
+      targetPort: sip-tcp

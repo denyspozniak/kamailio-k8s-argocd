@@ -4,8 +4,4 @@ kind: Kustomization
 namespace: kamailio
 
 resources:
-  - ../base
-
-replicas:
-  - name: kamailio
-    count: 2
+  - cronjob.yaml
